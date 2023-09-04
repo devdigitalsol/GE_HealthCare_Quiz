@@ -14,7 +14,9 @@ export default function Layout1() {
         <img src={BOTTOMLOGO} alt="logo" />
       </div>
       {/* <p className=" absolute bottom-0 text-xs font-thin ">JB00326BS</p> */}
-      <p className=" absolute bottom-0  text-small">JB00326BS</p>
+      <p className=" absolute bottom-0  text-small text-white font-extralight">
+        JB00326BS
+      </p>
     </div>
   );
 }

@@ -18,7 +18,9 @@ export default function Layout2() {
       <div className="w-full shrink-0 overflow-hidden">
         <div className="layout2 -mt-10">
           <img src={BOTTOMLOGO} alt="logo" />
-          <p className="text-center  text-small  ">JB00326BS</p>
+          <p className="text-center  text-small text-white font-extralight  ">
+            JB00326BS
+          </p>
         </div>
       </div>
     </div>
