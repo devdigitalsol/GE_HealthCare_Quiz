@@ -8,7 +8,8 @@ import axios from "axios";
 import Loading from "../components/Loading";
 export default function Preview() {
   const navigate = useNavigate();
-  const { info, isLoading, setIsLoading } = useContext(AppContext);
+  const { info, identifier, isLoading, setIsLoading } = useContext(AppContext);
+
   let myPdf = "certificate.pdf";
   useEffect(() => {
     if (!info) {
@@ -90,8 +91,7 @@ export default function Preview() {
         config
       );
       if (resp?.data?.status === 200) {
-        // console.log(resp.data);
-        uploadData(resp.data.filename);
+        updateScoreAndPdf(resp.data.filename);
       }
       setIsLoading(false);
     } catch (error) {
@@ -100,25 +100,17 @@ export default function Preview() {
     }
   };
 
-  const uploadData = async (pdfUrl) => {
+  const updateScoreAndPdf = async (pdfUrl) => {
     try {
       setIsLoading(true);
       const resp = await axios.post("https://api.torstenmonth.com/index.php", {
-        operation: "save_radiologist_details",
-        radiologist_name: info.radiologistname,
-        radiologist_email: info.emailId,
-        speciality: info.specialty,
-        city: info.city,
-        hospital: info.hospital,
-        employee_name: info.GEEmployeeName,
-        photo_url: "",
-        generated_photo_url: info.generated_photo_url,
+        operation: "update_score_and_pdf_url",
+        identifier: identifier,
+        score: info.score,
         pdf_url: pdfUrl,
       });
       if (resp?.data?.status === 200) {
         setIsLoading(false);
-        // console.log("data", resp.data);
-        console.log("done");
       }
     } catch (error) {
       setIsLoading(false);

@@ -5,6 +5,7 @@ import * as Yup from "yup";
 import PicModal from "./../components/PicModal";
 import TermModal from "../components/TermModal";
 import { AppContext } from "../context";
+import axios from "axios";
 
 const validationSchema = Yup.object().shape({
   radiologistname: Yup.string().required("Doctor name is required"),
@@ -21,9 +22,10 @@ const validationSchema = Yup.object().shape({
   termsAndCondition: Yup.boolean().oneOf([true], "Accept terms and conditions"),
 });
 export default function Home() {
-  const { setInfo } = useContext(AppContext);
+  const { setInfo, setIdentifier } = useContext(AppContext);
   const [openModal, setOpenModal] = useState({});
   const [termModalOpen, setTermModalOpen] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
   const navigate = useNavigate();
   return (
     <div className="px-6">
@@ -43,9 +45,36 @@ export default function Home() {
           termsAndCondition: false,
         }}
         validationSchema={validationSchema}
-        onSubmit={(val) => {
-          setInfo(val);
-          navigate("/story");
+        onSubmit={(values) => {
+          setSubmitting(true);
+          setInfo(values);
+          const apiUrl = "https://api.torstenmonth.com/index.php";
+          const requestData = {
+            operation: "save_radiologist_details",
+            radiologist_name: values.radiologistname,
+            radiologist_email: values.emailId,
+            speciality: values.specialty,
+            city: values.city,
+            hospital: values.hospital,
+            employee_name: values.GEEmployeeName,
+            photo_url: "",
+            generated_photo_url: values.generated_photo_url,
+            pdf_url: "",
+          };
+          axios
+            .post(apiUrl, requestData)
+            .then((response) => {
+              if (response.data?.status === 200) {
+                setIdentifier(response.data.identifier);
+                navigate("/story");
+              }
+            })
+            .catch((error) => {
+              console.error("API call error:", error);
+            })
+            .finally(() => {
+              setSubmitting(false);
+            });
         }}
       >
         {({
@@ -198,7 +227,11 @@ export default function Home() {
                 />
               </div>
               <div className="text-center">
-                <button type="submit" className="btn w-full">
+                <button
+                  type="submit"
+                  className="btn w-full"
+                  disabled={submitting}
+                >
                   SUBMIT
                 </button>
               </div>

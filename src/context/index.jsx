@@ -6,6 +6,7 @@ export const AppContext = createContext(null);
 export const AppState = ({ children }) => {
   const [info, setInfo] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [identifier, setIdentifier] = useState();
   const generatePhoto = async () => {
     setIsLoading(true);
     const config = {
@@ -43,6 +44,8 @@ export const AppState = ({ children }) => {
     generatePhoto,
     isLoading,
     setIsLoading,
+    identifier,
+    setIdentifier,
   };
   return <AppContext.Provider value={store}>{children}</AppContext.Provider>;
 };
