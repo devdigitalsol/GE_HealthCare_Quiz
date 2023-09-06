@@ -39,6 +39,10 @@ export default function Tableview({ data }) {
       cell: (info) => <span>{info.getValue()}</span>,
       header: "Hospital",
     }),
+    columnHelper.accessor("score", {
+      cell: (info) => <span>{info.getValue()}</span>,
+      header: "score",
+    }),
     columnHelper.accessor("employee_name", {
       cell: (info) => <span>{info.getValue()}</span>,
       header: "Employee",
