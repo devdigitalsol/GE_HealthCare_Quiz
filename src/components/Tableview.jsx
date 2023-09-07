@@ -83,7 +83,7 @@ export default function Tableview({ data }) {
   return (
     <div className="space-y-3 p-4">
       <div>
-        <DownloadBtn data={data} fileName={"peoples"} />
+        <DownloadBtn data={data} fileName={"Torstenmonth Data"} />
       </div>
       <table className="border border-gray-700 w-full text-left">
         <thead className="bg-primary">
