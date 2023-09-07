@@ -107,6 +107,7 @@ export default function Preview() {
         operation: "update_score_and_pdf_url",
         identifier: identifier,
         score: info.score,
+        photo_url: info.generated_photo_url,
         pdf_url: pdfUrl,
       });
       if (resp?.data?.status === 200) {
