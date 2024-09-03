@@ -30,7 +30,8 @@ export default function Preview() {
     const ctx = canvas.getContext("2d");
     const img = new Image();
     img.crossOrigin = "";
-    img.src = info?.generated_photo_url;
+    // img.src = info?.generated_photo_url;
+    img.src=info?.photo;
     img.onload = () => {
       canvas.width = 512;
       canvas.height = 512;
@@ -96,7 +97,6 @@ export default function Preview() {
       setIsLoading(false);
     } catch (error) {
       setIsLoading(false);
-      console.log(error);
     }
   };
 
@@ -107,7 +107,7 @@ export default function Preview() {
         operation: "update_score_and_pdf_url",
         identifier: identifier,
         score: info.score,
-        photo_url: info.generated_photo_url,
+        photo_url: "",
         pdf_url: pdfUrl,
       });
       if (resp?.data?.status === 200) {
@@ -115,7 +115,6 @@ export default function Preview() {
       }
     } catch (error) {
       setIsLoading(false);
-      console.log(error);
     }
   };
 
@@ -123,8 +122,8 @@ export default function Preview() {
     return (
       <>
         <div className="w-72 relative">
-          <div className="rounded-full overflow-hidden w-[70px] absolute top-[212px] mx-auto left-0 right-0">
-            <img src={info.generated_photo_url} alt={info.radiologistname} />
+           <div className="rounded-full overflow-hidden w-[70px] absolute top-[212px] mx-auto left-0 right-0">
+            <img src={info.photo} alt={info.radiologistname} />
           </div>
           <div className="text-primary absolute left-0 right-0 mx-auto text-center top-[288px] text-sm font-semibold">
             {info.radiologistname}

@@ -7,6 +7,7 @@ export const AppState = ({ children }) => {
   const [info, setInfo] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [identifier, setIdentifier] = useState();
+
   const generatePhoto = async () => {
     setIsLoading(true);
     const config = {
@@ -34,7 +35,6 @@ export const AppState = ({ children }) => {
       }
     } catch (error) {
       setIsLoading(false);
-      console.log(error);
     }
   };
 

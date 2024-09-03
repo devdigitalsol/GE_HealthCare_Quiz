@@ -7,6 +7,8 @@ export default function PicModal({ show, setShow, setFieldValue }) {
   const fileRef = useRef();
   const types = ["image/png", "image/jpeg"];
   const [src, setSrc] = useState();
+
+
   const selectImg = (e) => {
     let file = e.target.files[0];
     if (file && types.includes(file.type)) {
@@ -20,13 +22,14 @@ export default function PicModal({ show, setShow, setFieldValue }) {
     }
   };
   const cropImg = useCallback(() => {
-    // setNewPic(cropperRef.current.cropper.getCroppedCanvas().toDataURL());
     setFieldValue(
       "photo",
       cropperRef.current.cropper.getCroppedCanvas().toDataURL("image/jpeg")
     );
     setShow(false);
   }, [setShow, setFieldValue]);
+
+
   return (
     <>
       {show && (
@@ -43,6 +46,7 @@ export default function PicModal({ show, setShow, setFieldValue }) {
                     onChange={selectImg}
                     className="absolute -left-[-9999px] opacity-0"
                     ref={fileRef}
+                    accept="image/png, image/jpeg"
                   />
                 </label>
               </div>
