@@ -12,12 +12,19 @@ export default function Score() {
       navigate("/");
     }
   }, [info, navigate]);
+
   const uploadPhoto = () => {
     const checkphoto = generatePhoto();
     if (checkphoto) {
       navigate("/preview");
     }
   };
+
+  const generateCertificate=()=>{
+    navigate("/preview")
+  }
+
+
   if (info) {
     return (
       <>
@@ -31,9 +38,12 @@ export default function Score() {
           <h4 className="text-primary font-semibold">Your score is</h4>
           <div className="text-primary text-2xl font-bold">{info.score}/10</div>
           <p className="text-primary">Download your certificate here</p>
-          <button onClick={uploadPhoto} className="btn w-full">
+          {/* <button onClick={uploadPhoto} className="btn w-full">
             Generate
-          </button>
+          </button> */}
+           <button onClick={generateCertificate} className="btn w-full">
+            Generate
+           </button>
         </div>
         <Loading isLoading={isLoading} />
       </>
